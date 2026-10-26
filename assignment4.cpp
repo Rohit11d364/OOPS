@@ -1,73 +1,124 @@
 #include <iostream>
-#include <math.h>
 using namespace std;
 
 class Complex
 {
-private:
-    int real, img;
+    float real, imag;
 
 public:
-    void display();
-    void read();
-    void add(Complex);
-    void subtract(Complex);
-    void multiply(Complex);
+   
+    void input()
+    {
+        cout << "Enter real and imaginary parts: ";
+        cin >> real >> imag;
+    }
+
+    
+    void display()
+    {
+        if (imag >= 0)
+            cout << real << " + " << imag << "i" << endl;
+        else
+            cout << real << " - " << -imag << "i" << endl;
+    }
+
+    
+    Complex add(Complex c)
+    {
+        Complex temp;
+        temp.real = real + c.real;
+        temp.imag = imag + c.imag;
+        return temp;
+    }
+
+    
+    Complex subtract(Complex c)
+    {
+        Complex temp;
+        temp.real = real - c.real;
+        temp.imag = imag - c.imag;
+        return temp;
+    }
+
+    
+    Complex multiply(Complex c)
+    {
+        Complex temp;
+        temp.real = real * c.real - imag * c.imag;
+        temp.imag = real * c.imag + imag * c.real;
+        return temp;
+    }
+
+    
+    Complex divide(Complex c)
+    {
+        Complex temp;
+        float denominator = c.real * c.real +
+                            c.imag * c.imag;
+
+        if (denominator == 0)
+        {
+            cout << "Division by zero is not possible!" << endl;
+            temp.real = 0;
+            temp.imag = 0;
+        }
+        else
+        {
+            temp.real = (real * c.real +
+                         imag * c.imag) / denominator;
+
+            temp.imag = (imag * c.real -
+                         real * c.imag) / denominator;
+        }
+
+        return temp;
+    }
+
+   
+    Complex conjugate()
+    {
+        Complex temp;
+        temp.real = real;
+        temp.imag = -imag;
+        return temp;
+    }
 };
-
-void Complex::read()
-{
-    cout << "Enter real part: ";
-    cin >> real;
-    cout << "Enter imaginary part: ";
-    cin >> img;
-}
-
-void Complex::display()
-{
-    cout << real << " + " << img << " i " << endl;
-}
-
-void Complex::add(Complex C1)
-{
-    Complex Sum;
-    Sum.real = real + C1.real;
-    Sum.img = img + C1.img;
-
-    Sum.display();
-}
-
-void Complex::subtract(Complex C1)
-{
-    Complex Difference;
-    Difference.real = real - C1.real;
-    Difference.img = img - C1.img;
-    Difference.display();
-}
-
-void Complex::multiply(Complex C1)
-{
-    Complex Product;
-    Product.real = (real * C1.real) - (img * C1.img);
-    Product.img = (real * C1.img) + (img * C1.real);
-    Product.display();
-}
-
 
 int main()
 {
-    Complex C1, C2;
+    Complex c1, c2, result;
+
     cout << "Enter first complex number:" << endl;
-    C1.read();
-    cout << endl;
+    c1.input();
+
     cout << "Enter second complex number:" << endl;
-    C2.read();
-    cout << endl;
-    cout << "Addition: ";
-    C2.add(C1);
+    c2.input();
+
+    cout << "\nFirst complex number: ";
+    c1.display();
+
+    cout << "Second complex number: ";
+    c2.display();
+
+    result = c1.add(c2);
+    cout << "\nAddition: ";
+    result.display();
+
+    result = c1.subtract(c2);
     cout << "Subtraction: ";
-    C2.subtract(C1);
+    result.display();
+
+    result = c1.multiply(c2);
     cout << "Multiplication: ";
-    C2.multiply(C1);
+    result.display();
+
+    result = c1.divide(c2);
+    cout << "Division: ";
+    result.display();
+
+    result = c1.conjugate();
+    cout << "Conjugate of first number: ";
+    result.display();
+
     return 0;
 }
