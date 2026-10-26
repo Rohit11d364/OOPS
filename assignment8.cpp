@@ -1,62 +1,71 @@
 #include <iostream>
-#include <cstring>
+#include <string>
 using namespace std;
 
-class String
+class BasicInfo
 {
-    char *str;  // Pointer to store the string
+protected:
+    int id;
+    string name;
+    int age;
 
 public:
-    // Default constructor
-    String()
+    void readBasicInfo()
     {
-        str = new char[1];
-        str[0] = '\0';
+        cout << "Enter Employee ID: ";
+        cin >> id;
+
+        cout << "Enter Employee Name: ";
+        getline(cin >> ws, name);
+
+        cout << "Enter Employee Age: ";
+        cin >> age;
+    }
+};
+
+class DepartmentInfo
+{
+protected:
+    string department;
+    float salary;
+
+public:
+    void readDepartmentInfo()
+    {
+        cout << "Enter Department Name: ";
+        getline(cin >> ws, department);
+
+        cout << "Enter Salary: ";
+        cin >> salary;
+    }
+};
+
+class Employee : public BasicInfo, public DepartmentInfo
+{
+public:
+    void read()
+    {
+        readBasicInfo();
+        readDepartmentInfo();
     }
 
-    // Parameterized constructor
-    String(const char *s)
-    {
-        str = new char[strlen(s) + 1];
-        strcpy(str, s);
-    }
-
-    // Destructor to free dynamically allocated memory
-    ~String()
-    {
-        delete[] str;
-    }
-
-    // Function to accept a string from the user
-    void accept()
-    {
-        char temp[100];
-
-        cout << "Enter a string: ";
-        cin >> temp;
-
-        delete[] str;  // Delete previous memory
-
-        str = new char[strlen(temp) + 1];
-        strcpy(str, temp);
-    }
-
-    // Function to display the string
     void display()
     {
-        cout << "String: " << str << endl;
+        cout << "\n--- Employee Information ---" << endl;
+        cout << "Employee ID: " << id << endl;
+        cout << "Employee Name: " << name << endl;
+        cout << "Employee Age: " << age << endl;
+        cout << "Department: " << department << endl;
+        cout << "Salary: " << salary << endl;
     }
 };
 
 int main()
 {
-    String s1;  // Calls default constructor
+    Employee e;
 
-    s1.accept();
-    s1.display();
+    e.read();
+    e.display();
 
-    String s2("Hello");  // Calls parameterized constructor
-    s2.display();
-
-    return 0; 
+    return 0;
 }
