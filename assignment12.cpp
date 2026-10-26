@@ -1,29 +1,36 @@
 #include <iostream>
+using namespace std;
 
-namespace P1
+namespace p1
 {
-    int add(int m, int n)
+    int value = 15;
+
+    void display()
     {
-        return m + n;
+        cout << "first namespace value: " << value << endl;
     }
 }
 
-namespace P2
+namespace p2
 {
-    int subtract(int m, int n)
+    int value = 19;
+
+    void display()
     {
-        return m - n;
+        cout << "second namespace value: " << value << endl;
     }
 }
 
 int main()
 {
-   
-    std::cout << "Addition = ";
-    std::cout << P1::add(5, 5) <<std::endl;
+    p1::display();
+    p2::display();
 
-    std::cout << "Subtraction = ";
-    std::cout << P2::subtract(5, 2);
-   
+    cout << "Value from first namespace: "
+         << p1::value << endl;
+
+    cout << "Value from second namespace: "
+         << p2::value << endl;
+
     return 0;
 }
